@@ -2,8 +2,6 @@ package com.applandeo.materialcalendarview.utils;
 
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-
 /**
  * This class is used to load event image in a day cell
  * <p>
@@ -24,6 +22,6 @@ public class ImageUtils {
             return;
         }
 
-        Glide.with(imageView.getContext()).load(resource).into(imageView);
+        imageView.setImageResource(resource);
     }
 }
