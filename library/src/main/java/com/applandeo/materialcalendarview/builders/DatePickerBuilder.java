@@ -11,7 +11,7 @@ import android.support.v4.content.ContextCompat;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
-import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
+import com.applandeo.materialcalendarview.listeners.OnSelectDateDialogListener;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 
 /**
@@ -21,7 +21,7 @@ public class DatePickerBuilder {
     private Context mContext;
     private CalendarProperties mCalendarProperties;
 
-    public DatePickerBuilder(Context context, OnSelectDateListener onSelectDateListener) {
+    public DatePickerBuilder(Context context, OnSelectDateDialogListener onSelectDateListener) {
         mContext = context;
         mCalendarProperties = new CalendarProperties(context);
         mCalendarProperties.setCalendarType(CalendarView.ONE_DAY_PICKER);

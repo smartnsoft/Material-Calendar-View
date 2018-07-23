@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -28,14 +29,17 @@ import com.applandeo.materialcalendarview.utils.SelectedDay;
 
 public class DayRowClickListener implements AdapterView.OnItemClickListener {
 
+    private final AlertDialog mAlertDialog;
+
     private CalendarPageAdapter mCalendarPageAdapter;
 
     private CalendarProperties mCalendarProperties;
     private int mPageMonth;
 
-    public DayRowClickListener(CalendarPageAdapter calendarPageAdapter, CalendarProperties calendarProperties, int pageMonth) {
+    public DayRowClickListener(CalendarPageAdapter calendarPageAdapter, CalendarProperties calendarProperties, int pageMonth, AlertDialog alertDialog) {
         mCalendarPageAdapter = calendarPageAdapter;
         mCalendarProperties = calendarProperties;
+        mAlertDialog = alertDialog;
         mPageMonth = pageMonth < 0 ? 11 : pageMonth;
     }
 
@@ -50,7 +54,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
 
         switch (mCalendarProperties.getCalendarType()) {
             case CalendarView.ONE_DAY_PICKER:
-                selectOneDay(view, day);
+                selectOneDay(view, day, mAlertDialog);
                 break;
 
             case CalendarView.MANY_DAYS_PICKER:
@@ -66,7 +70,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         }
     }
 
-    private void selectOneDay(View view, Calendar day) {
+    private void selectOneDay(View view, Calendar day, AlertDialog alertDialog) {
         SelectedDay previousSelectedDay = mCalendarPageAdapter.getSelectedDay();
 
         TextView dayLabel = view.findViewById(R.id.dayLabel);
@@ -79,7 +83,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
               final ArrayList<Calendar> days = new ArrayList<>();
               days.add(day);
 
-              mCalendarProperties.getOnSelectDateListener().onSelect(days);
+              mCalendarProperties.getOnSelectDateListener().onSelect(days, alertDialog);
             }
         }
     }

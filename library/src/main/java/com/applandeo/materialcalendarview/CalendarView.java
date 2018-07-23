@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageButton;
@@ -61,6 +62,8 @@ public class CalendarView extends LinearLayout {
 
     private static final int FIRST_VISIBLE_PAGE = CALENDAR_SIZE / 2;
 
+    private AlertDialog mAlertDialog;
+
     private Context mContext;
     private CalendarPageAdapter mCalendarPageAdapter;
 
@@ -83,10 +86,11 @@ public class CalendarView extends LinearLayout {
     }
 
     //protected constructor to create CalendarView for the dialog date picker
-    protected CalendarView(Context context, CalendarProperties calendarProperties) {
+    protected CalendarView(Context context, CalendarProperties calendarProperties, AlertDialog alertDialog) {
         super(context);
         mContext = context;
         mCalendarProperties = calendarProperties;
+        mAlertDialog = alertDialog;
 
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.calendar_view, this);
@@ -217,7 +221,7 @@ public class CalendarView extends LinearLayout {
     }
 
     private void initCalendar() {
-        mCalendarPageAdapter = new CalendarPageAdapter(mContext, mCalendarProperties);
+        mCalendarPageAdapter = new CalendarPageAdapter(mContext, mCalendarProperties, mAlertDialog);
 
         mViewPager.setAdapter(mCalendarPageAdapter);
         mViewPager.addOnPageChangeListener(onPageChangeListener);

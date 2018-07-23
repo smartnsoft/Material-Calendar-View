@@ -1,7 +1,13 @@
 package com.applandeo.materialcalendarview.adapters;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +18,6 @@ import com.applandeo.materialcalendarview.extensions.CalendarGridView;
 import com.applandeo.materialcalendarview.listeners.DayRowClickListener;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 /**
  * This class is responsible for loading a calendar page content.
@@ -32,6 +33,8 @@ public class CalendarPageAdapter extends PagerAdapter {
      */
     public static final int CALENDAR_SIZE = 2401;
 
+    private final AlertDialog mAlertDialog;
+
     private Context mContext;
     private CalendarGridView mCalendarGridView;
 
@@ -41,9 +44,10 @@ public class CalendarPageAdapter extends PagerAdapter {
 
     private int mPageMonth;
 
-    public CalendarPageAdapter(Context context, CalendarProperties calendarProperties) {
+    public CalendarPageAdapter(Context context, CalendarProperties calendarProperties, AlertDialog alertDialog) {
         mContext = context;
         mCalendarProperties = calendarProperties;
+        mAlertDialog = alertDialog;
 
         if (mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER) {
             addSelectedDay(new SelectedDay(calendarProperties.getSelectedDate()));
@@ -73,7 +77,7 @@ public class CalendarPageAdapter extends PagerAdapter {
         loadMonth(position);
 
         mCalendarGridView.setOnItemClickListener(new DayRowClickListener(this,
-                mCalendarProperties, mPageMonth));
+                mCalendarProperties, mPageMonth, mAlertDialog));
 
         container.addView(mCalendarGridView);
         return mCalendarGridView;

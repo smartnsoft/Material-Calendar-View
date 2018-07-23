@@ -51,7 +51,10 @@ public class DatePicker {
         setOkButtonState(mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER);
         mCalendarProperties.setOnSelectionAbilityListener(this::setOkButtonState);
 
-        CalendarView calendarView = new CalendarView(mContext, mCalendarProperties);
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
+        final AlertDialog alertdialog = alertBuilder.create();
+
+        CalendarView calendarView = new CalendarView(mContext, mCalendarProperties, alertdialog);
 
         FrameLayout calendarContainer = view.findViewById(R.id.calendarContainer);
         calendarContainer.addView(calendarView);
@@ -64,15 +67,13 @@ public class DatePicker {
             }
         });
 
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
-        final AlertDialog alertdialog = alertBuilder.create();
         alertdialog.setView(view);
 
         mCancelButton.setOnClickListener(v -> alertdialog.cancel());
 
         mOkButton.setOnClickListener(v -> {
             alertdialog.cancel();
-            mCalendarProperties.getOnSelectDateListener().onSelect(calendarView.getSelectedDates());
+            mCalendarProperties.getOnSelectDateListener().onSelect(calendarView.getSelectedDates(), alertdialog);
         });
 
         mTodayButton.setOnClickListener(v -> calendarView.showCurrentMonthPage());

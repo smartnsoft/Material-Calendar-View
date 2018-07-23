@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,10 +15,10 @@ import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
-import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
+import com.applandeo.materialcalendarview.listeners.OnSelectDateDialogListener;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 
-public class MainActivity extends AppCompatActivity implements OnSelectDateListener {
+public class MainActivity extends AppCompatActivity implements OnSelectDateDialogListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,10 +122,12 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
     }
 
     @Override
-    public void onSelect(List<Calendar> calendars) {
+    public void onSelect(List<Calendar> calendars, AlertDialog alertDialog) {
         Stream.of(calendars).forEach(calendar ->
                 Toast.makeText(getApplicationContext(),
                         calendar.getTime().toString(),
                         Toast.LENGTH_SHORT).show());
+
+        alertDialog.cancel();
     }
 }

@@ -14,7 +14,7 @@ import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
-import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
+import com.applandeo.materialcalendarview.listeners.OnSelectDateDialogListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
 
 /**
@@ -38,7 +38,7 @@ public class CalendarProperties {
     private Calendar mCalendar, mMinimumDate, mMaximumDate;
 
     private OnDayClickListener mOnDayClickListener;
-    private OnSelectDateListener mOnSelectDateListener;
+    private OnSelectDateDialogListener mOnSelectDateListener;
     private OnSelectionAbilityListener mOnSelectionAbilityListener;
     private OnCalendarPageChangeListener mOnPreviousPageChangeListener;
     private OnCalendarPageChangeListener mOnForwardPageChangeListener;
@@ -71,11 +71,11 @@ public class CalendarProperties {
         mCalendar = calendar;
     }
 
-    public OnSelectDateListener getOnSelectDateListener() {
+    public OnSelectDateDialogListener getOnSelectDateListener() {
         return mOnSelectDateListener;
     }
 
-    public void setOnSelectDateListener(OnSelectDateListener onSelectDateListener) {
+    public void setOnSelectDateListener(OnSelectDateDialogListener onSelectDateListener) {
         mOnSelectDateListener = onSelectDateListener;
     }
 
