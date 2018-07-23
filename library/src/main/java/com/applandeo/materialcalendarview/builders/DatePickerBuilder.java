@@ -1,5 +1,8 @@
 package com.applandeo.materialcalendarview.builders;
 
+import java.util.Calendar;
+import java.util.List;
+
 import android.content.Context;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -10,9 +13,6 @@ import com.applandeo.materialcalendarview.DatePicker;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
-
-import java.util.Calendar;
-import java.util.List;
 
 /**
  * Created by Mateusz Kornakiewicz on 12.10.2017.
@@ -138,6 +138,21 @@ public class DatePickerBuilder {
 
     public DatePickerBuilder anotherMonthsDaysLabelsColor(int color) {
         mCalendarProperties.setAnotherMonthsDaysLabelsColor(ContextCompat.getColor(mContext, color));
+        return this;
+    }
+
+    public DatePickerBuilder isTodayButtonVisible(boolean isVisible) {
+        mCalendarProperties.setTodayVisibility(isVisible);
+        return this;
+    }
+
+    public DatePickerBuilder isCancelButtonVisible(boolean isVisible) {
+        mCalendarProperties.setCancelVisibility(isVisible);
+        return this;
+    }
+
+    public DatePickerBuilder isOkButtonVisible(boolean isVisible) {
+        mCalendarProperties.setOkVisibility(isVisible);
         return this;
     }
 }

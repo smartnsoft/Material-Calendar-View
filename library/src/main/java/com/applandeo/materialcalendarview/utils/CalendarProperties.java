@@ -1,5 +1,9 @@
 package com.applandeo.materialcalendarview.utils;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
@@ -12,10 +16,6 @@ import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 /**
  * This class contains all properties of the calendar
  * <p>
@@ -27,6 +27,8 @@ public class CalendarProperties {
             mDialogButtonsColor, mItemLayoutResource, mDisabledDaysLabelsColor, mPagesColor,
             mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor, mSelectionLabelColor,
             mAnotherMonthsDaysLabelsColor;
+
+    private boolean mIsTodayVisible = true, mIsCancelVisible = true, mIsOkVisible = true;
 
     private Drawable mPreviousButtonSrc, mForwardButtonSrc;
 
@@ -299,4 +301,29 @@ public class CalendarProperties {
     public void setAnotherMonthsDaysLabelsColor(int anotherMonthsDaysLabelsColor) {
         mAnotherMonthsDaysLabelsColor = anotherMonthsDaysLabelsColor;
     }
+
+    public void setTodayVisibility(boolean isVisible) {
+        mIsTodayVisible = isVisible;
+    }
+
+    public boolean isTodayVisible() {
+        return mIsTodayVisible;
+    }
+
+    public void setCancelVisibility(boolean isVisible) {
+        mIsCancelVisible = isVisible;
+    }
+
+    public boolean isCancelVisible() {
+        return mIsCancelVisible;
+    }
+
+    public void setOkVisibility(boolean isVisible) {
+        mIsOkVisible = isVisible;
+    }
+
+    public boolean isOkVisible() {
+        return mIsOkVisible;
+    }
+
 }

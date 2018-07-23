@@ -40,18 +40,20 @@ public class DatePicker {
             view.setBackgroundColor(mCalendarProperties.getPagesColor());
         }
 
-        mCancelButton = (AppCompatButton) view.findViewById(R.id.negative_button);
-        mOkButton = (AppCompatButton) view.findViewById(R.id.positive_button);
-        mTodayButton = (AppCompatButton) view.findViewById(R.id.today_button);
+        mCancelButton = view.findViewById(R.id.negative_button);
+        mOkButton = view.findViewById(R.id.positive_button);
+        mTodayButton = view.findViewById(R.id.today_button);
 
         setTodayButtonVisibility();
+        setOkButtonVisibility();
+        setCancelButtonVisibility();
         setDialogButtonsColors();
         setOkButtonState(mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER);
         mCalendarProperties.setOnSelectionAbilityListener(this::setOkButtonState);
 
         CalendarView calendarView = new CalendarView(mContext, mCalendarProperties);
 
-        FrameLayout calendarContainer = (FrameLayout) view.findViewById(R.id.calendarContainer);
+        FrameLayout calendarContainer = view.findViewById(R.id.calendarContainer);
         calendarContainer.addView(calendarView);
 
         Optional.ofNullable(mCalendarProperties.getCalendar()).ifPresent(calendar -> {
@@ -61,6 +63,8 @@ public class DatePicker {
                 exception.printStackTrace();
             }
         });
+
+        setOnDayClickListener(calendarView);
 
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
         final AlertDialog alertdialog = alertBuilder.create();
@@ -98,8 +102,27 @@ public class DatePicker {
 
     private void setTodayButtonVisibility() {
         if (DateUtils.isMonthAfter(mCalendarProperties.getMaximumDate(), DateUtils.getCalendar())
-                || DateUtils.isMonthBefore(mCalendarProperties.getMinimumDate(), DateUtils.getCalendar())) {
+                || DateUtils.isMonthBefore(mCalendarProperties.getMinimumDate(), DateUtils.getCalendar()) || !mCalendarProperties.isTodayVisible()) {
             mTodayButton.setVisibility(View.GONE);
         }
     }
+
+    private void setOkButtonVisibility() {
+        if(!mCalendarProperties.isOkVisible()) {
+            mOkButton.setVisibility(View.GONE);
+        }
+    }
+
+    private void setCancelButtonVisibility() {
+        if(!mCalendarProperties.isCancelVisible()) {
+            mCancelButton.setVisibility(View.GONE);
+        }
+    }
+
+    private void setOnDayClickListener(CalendarView calendarView) {
+        if(!mCalendarProperties.isOkVisible()) {
+            calendarView.setOnDayClickListener(eventDay -> mCalendarProperties.getOnSelectDateListener().onSelect(calendarView.getSelectedDates()));
+        }
+    }
+
 }

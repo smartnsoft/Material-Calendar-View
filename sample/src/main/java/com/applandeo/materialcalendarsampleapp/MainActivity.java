@@ -1,5 +1,9 @@
 package com.applandeo.materialcalendarsampleapp;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,10 +17,6 @@ import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity implements OnSelectDateListener {
 
     @Override
@@ -24,20 +24,20 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button openCalendarButton = (Button) findViewById(R.id.openCalendarButton);
+        Button openCalendarButton = findViewById(R.id.openCalendarButton);
 
         openCalendarButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, CalendarActivity.class);
             startActivity(intent);
         });
 
-        Button openOneDayPicker = (Button) findViewById(R.id.openOneDayPickerButton);
+        Button openOneDayPicker = findViewById(R.id.openOneDayPickerButton);
         openOneDayPicker.setOnClickListener(v -> startActivity(new Intent(this, OneDayPickerActivity.class)));
 
-        Button openManyDaysPicker = (Button) findViewById(R.id.openManyDayPickerButton);
+        Button openManyDaysPicker = findViewById(R.id.openManyDayPickerButton);
         openManyDaysPicker.setOnClickListener(v -> startActivity(new Intent(this, ManyDaysPickerActivity.class)));
 
-        Button openRangePicker = (Button) findViewById(R.id.openRangePickerButton);
+        Button openRangePicker = findViewById(R.id.openRangePickerButton);
         openRangePicker.setOnClickListener(v -> startActivity(new Intent(this, RangePickerActivity.class)));
 
         Calendar min = Calendar.getInstance();
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         Calendar max = Calendar.getInstance();
         max.add(Calendar.DAY_OF_MONTH, 3);
 
-        Button openOneDayPickerDialog = (Button) findViewById(R.id.openOneDayPickerDialogButton);
+        Button openOneDayPickerDialog = findViewById(R.id.openOneDayPickerDialogButton);
         openOneDayPickerDialog.setOnClickListener(v -> {
             DatePickerBuilder oneDayBuilder = new DatePickerBuilder(this, this)
                     .pickerType(CalendarView.ONE_DAY_PICKER)
@@ -61,7 +61,10 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                     .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
                     .minimumDate(min)
                     .maximumDate(max)
-                    .disabledDays(getDisabledDays());
+                    .disabledDays(getDisabledDays())
+                    .isTodayButtonVisible(false)
+                    .isCancelButtonVisible(false)
+                    .isOkButtonVisible(false);
 
             DatePicker oneDayPicker = oneDayBuilder.build();
             oneDayPicker.show();
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .dialogButtonsColor(android.R.color.holo_green_dark)
                 .disabledDays(getDisabledDays());
 
-        Button openManyDaysPickerDialog = (Button) findViewById(R.id.openManyDaysPickerDialogButton);
+        Button openManyDaysPickerDialog = findViewById(R.id.openManyDaysPickerDialogButton);
         openManyDaysPickerDialog.setOnClickListener(v -> manyDaysBuilder.show());
 
         DatePickerBuilder rangeBuilder = new DatePickerBuilder(this, this)
@@ -92,9 +95,10 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .anotherMonthsDaysLabelsColor(R.color.sampleLighter)
                 .disabledDays(getDisabledDays());
 
+
         DatePicker rangePicker = rangeBuilder.build();
 
-        Button openRangePickerDialog = (Button) findViewById(R.id.openRangePickerDialogButton);
+        Button openRangePickerDialog = findViewById(R.id.openRangePickerDialogButton);
         openRangePickerDialog.setOnClickListener(v -> rangePicker.show());
     }
 
