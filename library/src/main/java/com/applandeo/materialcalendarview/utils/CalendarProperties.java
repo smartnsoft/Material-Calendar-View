@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
 import com.annimon.stream.Stream;
+import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
@@ -44,6 +45,9 @@ public class CalendarProperties {
 
     private List<EventDay> mEventDays = new ArrayList<>();
     private List<Calendar> mDisabledDays = new ArrayList<>();
+    private List<Calendar> mEnabledDays = new ArrayList<>();
+
+    private int mDaysMode = CalendarView.DISABLED_DAYS;
 
     private Context mContext;
 
@@ -223,11 +227,28 @@ public class CalendarProperties {
         return mDisabledDays;
     }
 
+    public List<Calendar> getEnabledDays() {
+        return mEnabledDays;
+    }
+
     public void setDisabledDays(List<Calendar> disabledDays) {
         mDisabledDays = Stream.of(disabledDays).map(calendar -> {
             DateUtils.setMidnight(calendar);
             return calendar;
         }).toList();
+        mDaysMode = CalendarView.DISABLED_DAYS;
+    }
+
+    public void setEnabledDays(List<Calendar> enabledDays) {
+        mEnabledDays = Stream.of(enabledDays).map(calendar -> {
+            DateUtils.setMidnight(calendar);
+            return calendar;
+        }).toList();
+        mDaysMode = CalendarView.ENABLED_DAYS;
+    }
+
+    public int getDaysMode() {
+        return mDaysMode;
     }
 
     public int getDisabledDaysLabelsColor() {

@@ -1,5 +1,9 @@
 package com.applandeo.materialcalendarview;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -9,6 +13,8 @@ import android.view.LayoutInflater;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import static com.applandeo.materialcalendarview.adapters.CalendarPageAdapter.CALENDAR_SIZE;
 
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
@@ -20,12 +26,6 @@ import com.applandeo.materialcalendarview.utils.AppearanceUtils;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import static com.applandeo.materialcalendarview.adapters.CalendarPageAdapter.CALENDAR_SIZE;
 
 /**
  * This class represents a view, displays to user as calendar. It allows to work in date picker
@@ -55,6 +55,9 @@ public class CalendarView extends LinearLayout {
     public static final int ONE_DAY_PICKER = 1;
     public static final int MANY_DAYS_PICKER = 2;
     public static final int RANGE_PICKER = 3;
+
+    public static final int DISABLED_DAYS = 0;
+    public static final int ENABLED_DAYS = 1;
 
     private static final int FIRST_VISIBLE_PAGE = CALENDAR_SIZE / 2;
 
@@ -202,15 +205,15 @@ public class CalendarView extends LinearLayout {
         // in the correct position (in the middle)
         mCalendarProperties.getCurrentDate().set(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
 
-        ImageButton forwardButton = (ImageButton) findViewById(R.id.forwardButton);
+        ImageButton forwardButton = findViewById(R.id.forwardButton);
         forwardButton.setOnClickListener(onNextClickListener);
 
-        ImageButton previousButton = (ImageButton) findViewById(R.id.previousButton);
+        ImageButton previousButton = findViewById(R.id.previousButton);
         previousButton.setOnClickListener(onPreviousClickListener);
 
-        mCurrentMonthLabel = (TextView) findViewById(R.id.currentDateLabel);
+        mCurrentMonthLabel = findViewById(R.id.currentDateLabel);
 
-        mViewPager = (CalendarViewPager) findViewById(R.id.calendarViewPager);
+        mViewPager = findViewById(R.id.calendarViewPager);
     }
 
     private void initCalendar() {

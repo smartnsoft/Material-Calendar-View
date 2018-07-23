@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                     .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
                     .minimumDate(min)
                     .maximumDate(max)
-                    .disabledDays(getDisabledDays())
+//                    .disabledDays(getDisabledDays());
+                    .enabledDays(getDisabledDays())
                     .isTodayButtonVisible(false)
                     .isCancelButtonVisible(false)
                     .isOkButtonVisible(false);

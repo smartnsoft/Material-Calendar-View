@@ -64,8 +64,6 @@ public class DatePicker {
             }
         });
 
-        setOnDayClickListener(calendarView);
-
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
         final AlertDialog alertdialog = alertBuilder.create();
         alertdialog.setView(view);
@@ -116,12 +114,6 @@ public class DatePicker {
     private void setCancelButtonVisibility() {
         if(!mCalendarProperties.isCancelVisible()) {
             mCancelButton.setVisibility(View.GONE);
-        }
-    }
-
-    private void setOnDayClickListener(CalendarView calendarView) {
-        if(!mCalendarProperties.isOkVisible()) {
-            calendarView.setOnDayClickListener(eventDay -> mCalendarProperties.getOnSelectDateListener().onSelect(calendarView.getSelectedDates()));
         }
     }
 

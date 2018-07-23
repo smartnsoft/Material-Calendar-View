@@ -96,6 +96,11 @@ public class DatePickerBuilder {
         return this;
     }
 
+    public DatePickerBuilder enabledDays(List<Calendar> enabledDays) {
+        mCalendarProperties.setEnabledDays(enabledDays);
+        return this;
+    }
+
     public DatePickerBuilder previousPageChangeListener(OnCalendarPageChangeListener listener) {
         mCalendarProperties.setOnPreviousPageChangeListener(listener);
         return this;

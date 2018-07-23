@@ -1,5 +1,10 @@
 package com.applandeo.materialcalendarview.adapters;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -18,11 +23,6 @@ import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.applandeo.materialcalendarview.utils.DayColorsUtils;
 import com.applandeo.materialcalendarview.utils.ImageUtils;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * This class is responsible for loading a one day cell.
@@ -54,8 +54,8 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
             view = mLayoutInflater.inflate(mCalendarProperties.getItemLayoutResource(), parent, false);
         }
 
-        TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
-        ImageView dayIcon = (ImageView) view.findViewById(R.id.dayIcon);
+        TextView dayLabel = view.findViewById(R.id.dayLabel);
+        ImageView dayIcon = view.findViewById(R.id.dayIcon);
 
         Calendar day = new GregorianCalendar();
         day.setTime(getItem(position));
@@ -112,7 +112,11 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     }
 
     private boolean isActiveDay(Calendar day) {
-        return !mCalendarProperties.getDisabledDays().contains(day);
+        if(mCalendarProperties.getDaysMode() == CalendarView.DISABLED_DAYS) {
+            return !mCalendarProperties.getDisabledDays().contains(day);
+        }
+
+        return mCalendarProperties.getEnabledDays().contains(day);
     }
 
     private void loadIcon(ImageView dayIcon, Calendar day) {
