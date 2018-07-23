@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
+import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateDialogListener;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
@@ -98,6 +99,11 @@ public class DatePickerBuilder {
 
     public DatePickerBuilder enabledDays(List<Calendar> enabledDays) {
         mCalendarProperties.setEnabledDays(enabledDays);
+        return this;
+    }
+
+    public DatePickerBuilder eventDays(List<EventDay> eventDays) {
+        mCalendarProperties.setEventDays(eventDays);
         return this;
     }
 

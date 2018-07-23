@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
+import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateDialogListener;
 import com.applandeo.materialcalendarview.utils.DateUtils;
@@ -47,6 +48,12 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateDialo
         Calendar max = Calendar.getInstance();
         max.add(Calendar.DAY_OF_MONTH, 3);
 
+        final List<EventDay> events = new ArrayList<>();
+        for (Calendar calendar : getDisabledDays())
+        {
+            events.add(new EventDay(calendar, R.drawable.event));
+        }
+
         Button openOneDayPickerDialog = findViewById(R.id.openOneDayPickerDialogButton);
         openOneDayPickerDialog.setOnClickListener(v -> {
             DatePickerBuilder oneDayBuilder = new DatePickerBuilder(this, this)
@@ -62,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateDialo
                     .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
                     .minimumDate(min)
                     .maximumDate(max)
+                    .eventDays(events)
 //                    .disabledDays(getDisabledDays());
                     .enabledDays(getDisabledDays())
                     .isTodayButtonVisible(false)
